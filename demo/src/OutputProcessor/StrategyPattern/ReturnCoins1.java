@@ -43,7 +43,7 @@ public class ReturnCoins1 implements ReturnCoins {
      */
     @Override
     public void ReturnCoins() {
-        System.out.println("Return Coin Back");
+        System.out.println("Returning Coin/s Back");
         // Optional: System.out.println(ds.getIntCf());
     }
 }

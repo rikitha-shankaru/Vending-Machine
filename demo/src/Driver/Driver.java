@@ -85,7 +85,7 @@ public class Driver {
 
                 switch (ch) {
                     case 0:
-                        System.out.println("Operation: create(float)");
+                        System.out.println("Operation selected: create(float)");
                         System.out.print("Enter value of parameter p: ");
                         try {
                             p = in.nextFloat();
@@ -98,7 +98,7 @@ public class Driver {
                         break;
 
                     case 1:
-                        System.out.println("Operation: coin(float)");
+                        System.out.println("Operation selected: coin(float)");
                         System.out.print("Enter value of parameter v: ");
                         try {
                             v = in.nextFloat();
@@ -111,22 +111,22 @@ public class Driver {
                         break;
 
                     case 2:
-                        System.out.println("Operation: sugar()");
+                        System.out.println("Operation selected: sugar()");
                         vm1.sugar();
                         break;
 
                     case 3:
-                        System.out.println("Operation: cappuccino()");
+                        System.out.println("Operation selected: cappuccino()");
                         vm1.cappuccino();
                         break;
 
                     case 4:
-                        System.out.println("Operation: chocolate()");
+                        System.out.println("Operation selected: chocolate()");
                         vm1.chocolate();
                         break;
 
                     case 5:
-                        System.out.println("Operation: insert_cups(int)");
+                        System.out.println("Operation selected: insert_cups(int)");
                         System.out.print("Enter number of cups: ");
                         try {
                             n = in.nextInt();
@@ -139,7 +139,7 @@ public class Driver {
                         break;
 
                     case 6:
-                        System.out.println("Operation: set_price(float)");
+                        System.out.println("Operation selected: set_price(float)");
                         System.out.print("Enter new price: ");
                         try {
                             p = in.nextFloat();
@@ -152,12 +152,12 @@ public class Driver {
                         break;
 
                     case 7:
-                        System.out.println("Operation: cancel()");
+                        System.out.println("Operation selected: cancel()");
                         vm1.cancel();
                         break;
 
                     case 8:
-                        System.out.println("Operation: card(float)");
+                        System.out.println("Operation selected: card(float)");
                         System.out.print("Enter card value: ");
                         try {
                             x = in.nextFloat();
@@ -219,7 +219,7 @@ public class Driver {
 
                 switch (ch) {
                     case 0:
-                        System.out.println("Operation: CREATE(int)");
+                        System.out.println("Operation selected: CREATE(int)");
                         System.out.print("Enter value of p: ");
                         try {
                             p = in.nextInt();
@@ -232,7 +232,7 @@ public class Driver {
                         break;
 
                     case 1:
-                        System.out.println("Operation: COIN(int)");
+                        System.out.println("Operation selected: COIN(int)");
                         System.out.print("Enter value of v: ");
                         try {
                             v = in.nextInt();
@@ -245,22 +245,22 @@ public class Driver {
                         break;
 
                     case 2:
-                        System.out.println("Operation: SUGAR()");
+                        System.out.println("Operation selected: SUGAR()");
                         vm2.SUGAR();
                         break;
 
                     case 3:
-                        System.out.println("Operation: CREAM()");
+                        System.out.println("Operation selected: CREAM()");
                         vm2.CREAM();
                         break;
 
                     case 4:
-                        System.out.println("Operation: COFFEE()");
+                        System.out.println("Operation selected: COFFEE()");
                         vm2.COFFEE();
                         break;
 
                     case 5:
-                        System.out.println("Operation: InsertCups(int)");
+                        System.out.println("Operation selected: InsertCups(int)");
                         System.out.print("Enter number of cups: ");
                         try {
                             n = in.nextInt();
@@ -272,7 +272,7 @@ public class Driver {
                         break;
 
                     case 6:
-                        System.out.println("Operation: SetPrice(int)");
+                        System.out.println("Operation selected: SetPrice(int)");
                         System.out.print("Enter new price: ");
                         try {
                             p = in.nextInt();
@@ -285,7 +285,7 @@ public class Driver {
                         break;
 
                     case 7:
-                        System.out.println("Operation: CANCEL()");
+                        System.out.println("Operation selected: CANCEL()");
                         vm2.CANCEL();
                         break;
 
