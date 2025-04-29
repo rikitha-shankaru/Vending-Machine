@@ -42,6 +42,6 @@ public class StorePrice2 implements StorePrice {
     public void StorePrice() {
         int price = ds.getIntTemp_p();
         ds.setPrice(price);
-        System.out.println("Price of item " + ds.getIntPrice());
+        System.out.println("Price of item set to: " + ds.getIntPrice());
     }
 }

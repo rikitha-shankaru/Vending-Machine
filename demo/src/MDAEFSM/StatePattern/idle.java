@@ -48,8 +48,9 @@ public class idle extends State {
                 mda.ChangeState(3);
                 System.out.println("Sufficient funds. Please select your drink.");
             } else {
-                System.out.printf("Price updated to $%.2f. Current funds: $%.2f%n", 
-                            newPrice, currentCF);
+                // System.out.printf("Price updated to $%.2f. Current funds: $%.2f%n", 
+                //             newPrice, currentCF);
+                System.out.printf("Current funds: $%.2f%n", currentCF);
             }
         } 
         // VM-2 (int) implementation
@@ -61,8 +62,9 @@ public class idle extends State {
                 mda.ChangeState(3);
                 System.out.println("Sufficient funds. Please select your drink.");
             } else {
-                System.out.printf("Price updated to %d¢. Current funds: %d¢%n", 
-                            newPrice, currentCF);
+                // System.out.printf("Price updated to %d¢. Current funds: %d¢%n", 
+                //             newPrice, currentCF);
+                System.out.printf("Current funds: $%d%n", currentCF);
             }
         }
     }

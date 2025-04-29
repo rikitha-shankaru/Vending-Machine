@@ -109,8 +109,14 @@ public class VendingMachine1 {
 	 * @param x card balance or amount entered
 	 */
 	public void card(float x) {
-		if (x >= ds.getIntPrice()) {
+		if (x >= ds.getFloatPrice()) {
 			mda.card();
+		}
+		else
+		{
+			System.out.printf("DECLINED: $%.2f entered for $%.2f item.",
+						x, ds.getFloatPrice());
+			System.out.println("\nCard transaction failed. Please try again.");
 		}
 	}
 }

@@ -69,9 +69,10 @@ public class ReturnCoins1 implements ReturnCoins {
          * - Resets the temporary value storage after return
          */
         else if (ds instanceof DataStore2) {
-            DataStore2 ds2 = (DataStore2)ds;
-            System.out.println("Returning " + ds2.getIntTemp_v() + " Coin(s) Back");
-            ds2.setTemp_v(0); // Use int
+            DataStore2 ds2 = (DataStore2) ds;
+            int coins = ds2.getIntTemp_v();
+            System.out.println("Returning " + coins + " Coin(s) Back");
+            ds2.setTemp_v(0);   // Use int
         }
         else {
             System.out.println("ERROR: Unknown DataStore type");

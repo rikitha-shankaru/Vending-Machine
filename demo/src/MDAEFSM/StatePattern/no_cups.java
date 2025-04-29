@@ -47,7 +47,9 @@ public class no_cups extends State {
             DataStore1 ds1 = (DataStore1) op.getDataStore();
             ds1.setTemp_v(f); // Store the actual coin value
         } else if (ds instanceof DataStore2) {
-            ((DataStore2)ds).setTemp_v((int)f);
+            //DataStore2 ds2 = (DataStore2) ds;
+            //ds2.setTemp_v(f); // Store as int for VM2
+            //System.out.println("[VM2] Stored: " + ds2.getIntTemp_v());
         }
 
         ReturnCoins returnCoins = new ReturnCoins1();

@@ -48,10 +48,10 @@ public class coins_inserted extends State {
         
         // Return all accumulated coins (use CF instead of f)
         if (ds instanceof DataStore1) {
-            ((DataStore1)ds).setTemp_v(ds.getFloatCf()); // For VM-1
+            ((DataStore1)ds).setTemp_v(f); // For VM-1
         } 
         else if (ds instanceof DataStore2) {
-            ((DataStore2)ds).setTemp_v(ds.getIntCf()); // For VM-2
+            //((DataStore2)ds).setTemp_v(f); // For VM-2
         }
         
         ReturnCoins returnCoins = new ReturnCoins1();
@@ -144,7 +144,8 @@ public class coins_inserted extends State {
         System.out.println("ERROR: Cannot change price during transaction. Cancel or complete first.");
     }
     
-    public void card() {
-        System.out.println("ERROR: Payment already received. Select drink or cancel.");
+    public void card() {        
+        System.out.printf("DECLINED: Transaction in progress.");
+        System.out.println("\nPlease complete or cancel current transaction");
     }
 }

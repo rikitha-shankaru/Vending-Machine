@@ -40,8 +40,8 @@ public class MDAEFSM {
 
 		S = LS[0]; // Initial state: start
 
-		// Initialize additives array (size - 2 for sugar/cream)
-    	this.A = new int[2]; // Initialize with all 0s (no additives selected)
+		// Initialize additives array (size - 3 for sugar/cream)
+    	this.A = new int[3]; // Initialize with all 0s (no additives selected)
 	}
 
 	/**
