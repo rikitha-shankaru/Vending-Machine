@@ -4,6 +4,11 @@ package MDAEFSM.StatePattern;
 
 import MDAEFSM.*;
 import OutputProcessor.*;
+import DataStore.*;
+import DataStore.DataStore1;
+import DataStore.DataStore2;
+import OutputProcessor.StrategyPattern.ReturnCoins; 
+import OutputProcessor.StrategyPattern.ReturnCoins1;
 
 /**
  * ------------------------------------------------------------
@@ -35,8 +40,32 @@ public class coins_inserted extends State {
      * If coin is inserted again in this state, return it.
      * This is to prevent overpayment.
      */
-    public void coin(float f) {
-        op.ReturnCoins();
+    public void coin(int f) {
+        System.out.println("ERROR: Already paid.");
+       //System.out.println("[DEBUG] Entered coin() with value: " + f); // Debug 1
+        
+        DataStore ds = op.getDataStore();
+        
+        // Return all accumulated coins (use CF instead of f)
+        if (ds instanceof DataStore1) {
+            ((DataStore1)ds).setTemp_v(ds.getFloatCf()); // For VM-1
+        } 
+        else if (ds instanceof DataStore2) {
+            ((DataStore2)ds).setTemp_v(ds.getIntCf()); // For VM-2
+        }
+        
+        ReturnCoins returnCoins = new ReturnCoins1();
+        returnCoins.setDataStore(ds);
+        returnCoins.ReturnCoins();
+
+        // Debug output to verify values
+        // if (ds instanceof DataStore1) {
+        //     System.out.printf("[DEBUG] CF: %.2f, Temp_v: %.2f\n", 
+        //                     ds.getFloatCf(), ds.getFloatTemp_v());
+        // } else {
+        //     System.out.printf("[DEBUG] CF: %d, Temp_v: %d\n",
+        //                     ds.getIntCf(), ds.getIntTemp_v());
+        // }
     }
 
     /**
@@ -47,8 +76,22 @@ public class coins_inserted extends State {
      * - Transitions back to idle state
      */
     public void cancel() {
-        op.IncreaseCF();
-        op.ReturnCoins();
+        // Get DataStore from OutputProcessor
+        DataStore ds = op.getDataStore();
+        
+        // Return all accumulated coins (use CF instead of f)
+        if (ds instanceof DataStore1) {
+            ((DataStore1)ds).setTemp_v(ds.getFloatCf()); // For VM-1
+        } 
+        else if (ds instanceof DataStore2) {
+            ((DataStore2)ds).setTemp_v(ds.getIntCf()); // For VM-2
+        }
+        System.out.println("Transaction cancelled.");
+        
+        ReturnCoins returnCoins = new ReturnCoins1();
+        returnCoins.setDataStore(ds);
+        returnCoins.ReturnCoins();
+
         op.ZeroCF();
         mda.ChangeState(2); // transition to idle
     }
@@ -64,11 +107,13 @@ public class coins_inserted extends State {
             op.DisposeAdditive(mda.A);
             mda.k = mda.k - 1;
             op.ZeroCF();
+            System.out.println("\nRemaining cups: " + mda.k);
             mda.ChangeState(2); // remain in idle
         } else if (mda.k <= 1) {
             op.DisposeDrink(d);
             op.DisposeAdditive(mda.A);
             op.ZeroCF();
+            System.out.println("\nNo cups remaining!");
             mda.ChangeState(1); // transition to no_cups
         }
     }
@@ -80,8 +125,26 @@ public class coins_inserted extends State {
     public void additive(int a) {
         if (mda.A[a] == 0) {
             mda.A[a] = 1; // select additive
+            System.out.println("Additive added");
         } else {
             mda.A[a] = 0; // deselect additive
+            System.out.println("Additive removed");
         }
+    }
+
+    public void create() {
+        System.out.println("ERROR: Machine already created. Complete current transaction first.");
+    }
+    
+    public void insert_cups(int n) {
+        System.out.println("ERROR: Cannot insert cups during transaction. Cancel or complete first.");
+    }
+    
+    public void set_price() {
+        System.out.println("ERROR: Cannot change price during transaction. Cancel or complete first.");
+    }
+    
+    public void card() {
+        System.out.println("ERROR: Payment already received. Select drink or cancel.");
     }
 }

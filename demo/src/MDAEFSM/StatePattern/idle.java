@@ -4,6 +4,9 @@ package MDAEFSM.StatePattern;
 
 import MDAEFSM.*;
 import OutputProcessor.*;
+import DataStore.*;
+import DataStore.DataStore1;
+import DataStore.DataStore2;
 
 /**
  * ------------------------------------------------------------
@@ -34,7 +37,34 @@ public class idle extends State {
      */
     public void set_price() {
         op.StorePrice();
-        System.out.println("Price Stored");
+        DataStore ds = op.getDataStore();
+    
+        // VM-1 (float) implementation
+        if (ds instanceof DataStore1) {
+            float currentCF = ds.getFloatCf();
+            float newPrice = ds.getFloatPrice();
+            
+            if (currentCF >= newPrice) {
+                mda.ChangeState(3);
+                System.out.println("Sufficient funds. Please select your drink.");
+            } else {
+                System.out.printf("Price updated to $%.2f. Current funds: $%.2f%n", 
+                            newPrice, currentCF);
+            }
+        } 
+        // VM-2 (int) implementation
+        else if (ds instanceof DataStore2) {
+            int currentCF = ds.getIntCf();
+            int newPrice = ds.getIntPrice();
+            
+            if (currentCF >= newPrice) {
+                mda.ChangeState(3);
+                System.out.println("Sufficient funds. Please select your drink.");
+            } else {
+                System.out.printf("Price updated to %d¢. Current funds: %d¢%n", 
+                            newPrice, currentCF);
+            }
+        }
     }
 
     /**
@@ -45,7 +75,9 @@ public class idle extends State {
     public void insert_cups(int n) {
         if (n > 0) {
             mda.k = mda.k + n;
-            System.out.println("Cups updated " + mda.k);
+            System.out.println(n + " cup(s) added. Total cups: " + mda.k);
+        } else {
+            System.out.println("ERROR: Must insert at least 1 cup");
         }
     }
 
@@ -56,6 +88,7 @@ public class idle extends State {
     public void card() {
         op.ZeroCF();
         mda.A = new int[5]; // reset additive selection
+        System.out.println("Card payment accepted. Ready to select drink.");
         mda.ChangeState(3); // transition to coins_inserted
     }
 
@@ -73,5 +106,21 @@ public class idle extends State {
         } else if (f == 0) {
             op.IncreaseCF();
         }
+    }
+
+    public void create() {
+        System.out.println("ERROR: Machine already created.");
+    }
+    
+    public void cancel() {
+        System.out.println("ERROR: No transaction to cancel in idle state.");
+    }
+    
+    public void dispose_drink(int d) {
+        System.out.println("ERROR: Insert coins/card first before selecting drink.");
+    }
+    
+    public void additive(int a) {
+        System.out.println("ERROR: Select drink first before adding additives.");
     }
 }

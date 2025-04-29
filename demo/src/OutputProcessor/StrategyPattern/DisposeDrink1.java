@@ -26,9 +26,9 @@ public class DisposeDrink1 implements DisposeDrink {
     @Override
     public void DisposeDrink(int d) {
         if (d == 1) {
-            System.out.println("Dispose Cappuccino");
+            System.out.print("Dispose Cappuccino");
         } else if (d == 2) {
-            System.out.println("Dispose Chocolate");
+            System.out.print("Dispose Chocolate");
         }
     }
 }

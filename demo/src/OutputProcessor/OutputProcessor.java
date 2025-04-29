@@ -4,6 +4,8 @@ package OutputProcessor;
 
 import AbstractFactory.*;
 import DataStore.*;
+import DataStore.DataStore1;
+import DataStore.DataStore2;
 import OutputProcessor.StrategyPattern.*;
 
 /**

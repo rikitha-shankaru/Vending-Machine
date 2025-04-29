@@ -36,5 +36,35 @@ public class start extends State {
     public void create() {
         op.StorePrice();
         mda.ChangeState(1); // transition to no_cups state
+        System.out.println("Machine created and ready");
+    }
+    
+    public void coin(int f) {
+        System.out.println("ERROR: Insert coins not allowed in start state. Create machine first.");
+    }
+    
+    public void insert_cups(int n) {
+        System.out.println("ERROR: Insert cups not allowed in start state. Create machine first.");
+    }
+    
+    public void set_price() {
+        System.out.println("ERROR: Set price not allowed in start state. Create machine first.");
+    }
+    
+    public void card() {
+        System.out.println("ERROR: Card payment not allowed in start state. Create machine first.");
+    }
+    
+    public void cancel() {
+        System.out.println("ERROR: Cancel not allowed in start state. Create machine first.");
+    }
+    
+    public void dispose_drink(int d) {
+        System.out.println("ERROR: Cannot dispose drink in start state. Create machine first.");
+    }
+    
+    public void additive(int a) {
+        System.out.println("ERROR: Cannot add additives in start state. Create machine first.");
     }
 }
+

@@ -1,6 +1,8 @@
 package OutputProcessor.StrategyPattern;
 
 import DataStore.*;
+import DataStore.DataStore1;
+import DataStore.DataStore2;
 
 // Strategy Pattern: Concrete Strategy for returning coins (shared by VM-1 and VM-2)
 
@@ -25,7 +27,7 @@ public class ReturnCoins1 implements ReturnCoins {
      */
     @Override
     public DataStore getDataStore() {
-        return ds;
+        return this.ds;
     }
 
     /**
@@ -43,7 +45,36 @@ public class ReturnCoins1 implements ReturnCoins {
      */
     @Override
     public void ReturnCoins() {
-        System.out.println("Returning Coin/s Back");
-        // Optional: System.out.println(ds.getIntCf());
+        if (ds == null) {
+            System.out.println("ERROR: DataStore not set in ReturnCoins1!");
+            return;
+        }
+
+        /**
+         * VM-1 Implementation (float-based):
+         * - Retrieves coin value as float from DataStore1
+         * - Resets the temporary value storage after return
+         */
+
+        //System.out.println("[DEBUG] Current DataStore: " + ds.getClass().getSimpleName());
+
+        if (ds instanceof DataStore1) {
+            DataStore1 ds1 = (DataStore1)ds;
+            System.out.printf("Returning %.2f Coin(s) Back%n", ds1.getFloatTemp_v());
+            ds1.setTemp_v(0.0f); // Use float literal
+        } 
+        /**
+         * VM-2 Implementation (int-based):
+         * - Retrieves coin value as integer from DataStore2
+         * - Resets the temporary value storage after return
+         */
+        else if (ds instanceof DataStore2) {
+            DataStore2 ds2 = (DataStore2)ds;
+            System.out.println("Returning " + ds2.getIntTemp_v() + " Coin(s) Back");
+            ds2.setTemp_v(0); // Use int
+        }
+        else {
+            System.out.println("ERROR: Unknown DataStore type");
+        }
     }
 }

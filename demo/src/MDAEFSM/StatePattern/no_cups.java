@@ -2,6 +2,11 @@ package MDAEFSM.StatePattern;
 
 import MDAEFSM.*;
 import OutputProcessor.*;
+import DataStore.*;
+import DataStore.DataStore1;
+import DataStore.DataStore2;
+import OutputProcessor.StrategyPattern.ReturnCoins; 
+import OutputProcessor.StrategyPattern.ReturnCoins1;
 
 // State Pattern: This class represents the "no_cups" state
 
@@ -34,12 +39,25 @@ public class no_cups extends State {
      * - Refunds the coins and resets the cumulative fund
      * @param f flag for sufficient funds (not used in this state)
      */
-    public void coin(int f) {
-        op.IncreaseCF();
-        op.ReturnCoins();
-        System.out.println("No Cups in the Vending Machine, PLEASE INSERT CUPS FIRST!");
+    public void coin(int f) {           
+        DataStore ds = op.getDataStore();
+        
+        // Store coin value
+        if (op.getDataStore() instanceof DataStore1) {
+            DataStore1 ds1 = (DataStore1) op.getDataStore();
+            ds1.setTemp_v(f); // Store the actual coin value
+        } else if (ds instanceof DataStore2) {
+            ((DataStore2)ds).setTemp_v((int)f);
+        }
+
+        ReturnCoins returnCoins = new ReturnCoins1();
+        returnCoins.setDataStore(op.getDataStore());
+        returnCoins.ReturnCoins();
+
         op.ZeroCF();
-    }
+        
+        System.out.println("No cups available! Please insert cups first.");
+    }  
 
     /**
      * Inserts cups into the vending machine.
@@ -53,9 +71,33 @@ public class no_cups extends State {
             mda.k = n;
             op.ZeroCF();
             mda.ChangeState(2); // transition to idle state
-            System.out.println("Cups Inserted " + mda.k);
+            System.out.println(n + " cups inserted. Machine ready.");
         } else {
-            System.out.println("Insert cups");
+            System.out.println("ERROR: Must insert at least 1 cup");
         }
+    }
+    
+    public void create() {
+        System.out.println("ERROR: Machine already created. Insert cups instead.");
+    }
+    
+    public void set_price() {
+        System.out.println("ERROR: Cannot set price while no cups available.");
+    }
+    
+    public void card() {
+        System.out.println("ERROR: Card payment not allowed while no cups available.");
+    }
+    
+    public void cancel() {
+        System.out.println("ERROR: Nothing to cancel - no transaction in progress.");
+    }
+    
+    public void dispose_drink(int d) {
+        System.out.println("ERROR: Cannot dispense drink - no cups available.");
+    }
+    
+    public void additive(int a) {
+        System.out.println("ERROR: Cannot add additives - no cups available.");
     }
 }

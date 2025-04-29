@@ -29,10 +29,10 @@ public class DisposeAdditive2 implements DisposeAdditive {
     @Override
     public void DisposeAdditive(int[] array) {
         if (array[1] == 1) {
-            System.out.println("Sugar Added");
+            System.out.print("; Sugar Added");
         }
         if (array[2] == 1) {
-            System.out.println("Cream Added");
+            System.out.print("; Cream Added");
         }
     }
 }

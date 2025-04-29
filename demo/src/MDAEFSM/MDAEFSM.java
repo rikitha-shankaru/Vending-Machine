@@ -39,6 +39,9 @@ public class MDAEFSM {
 		LS[3] = new coins_inserted(this, op);
 
 		S = LS[0]; // Initial state: start
+
+		// Initialize additives array (size - 2 for sugar/cream)
+    	this.A = new int[2]; // Initialize with all 0s (no additives selected)
 	}
 
 	/**
@@ -47,7 +50,16 @@ public class MDAEFSM {
 	 */
 	public void ChangeState(int State) {
 		S = LS[State];
-		// System.out.println("Change State Called " + S);
+
+		String stateName;
+		switch(State) {
+			case 0: stateName = "start"; break;
+			case 1: stateName = "no_cups"; break;
+			case 2: stateName = "idle"; break;
+			case 3: stateName = "coins_inserted"; break;
+			default: stateName = "unknown"; break;
+		}
+		System.out.println("State changed to: " + stateName);
 	}
 
 	// Delegated Operations — Each method calls the corresponding method in the current state
