@@ -42,20 +42,24 @@ public class no_cups extends State {
     public void coin(int f) {           
         DataStore ds = op.getDataStore();
         
-        // Store coin value
+        // Store coin value to temp_v for refund
         if (op.getDataStore() instanceof DataStore1) {
             DataStore1 ds1 = (DataStore1) op.getDataStore();
             ds1.setTemp_v(f); // Store the actual coin value
-        } else if (ds instanceof DataStore2) {
+        } 
+        // Skipping setTemp_v for VM2 as coin value may not matter here
+        else if (ds instanceof DataStore2) {
             //DataStore2 ds2 = (DataStore2) ds;
             //ds2.setTemp_v(f); // Store as int for VM2
             //System.out.println("[VM2] Stored: " + ds2.getIntTemp_v());
         }
 
+        // Refund coin using strategy
         ReturnCoins returnCoins = new ReturnCoins1();
         returnCoins.setDataStore(op.getDataStore());
         returnCoins.ReturnCoins();
 
+        // Reset cumulative fund
         op.ZeroCF();
         
         System.out.println("No cups available! Please insert cups first.");
@@ -70,8 +74,8 @@ public class no_cups extends State {
      */
     public void insert_cups(int n) {
         if (n > 0) {
-            mda.k = n;
-            op.ZeroCF();
+            mda.k = n; // update cup count
+            op.ZeroCF(); // clear previous balance
             mda.ChangeState(2); // transition to idle state
             System.out.println(n + " cups inserted. Machine ready.");
         } else {
@@ -79,26 +83,44 @@ public class no_cups extends State {
         }
     }
     
+    /**
+     * Invalid: Machine is already initialized.
+     */
     public void create() {
         System.out.println("ERROR: Machine already created. Insert cups instead.");
     }
     
+    /**
+     * Invalid: Cannot change price when no cups are present.
+     */
     public void set_price() {
         System.out.println("ERROR: Cannot set price while no cups available.");
     }
     
+    /**
+     * Invalid: Card transactions are not allowed without cups.
+     */
     public void card() {
         System.out.println("ERROR: Card payment not allowed while no cups available.");
     }
     
+    /**
+     * Invalid: No active transaction to cancel.
+     */
     public void cancel() {
         System.out.println("ERROR: Nothing to cancel - no transaction in progress.");
     }
     
+    /**
+     * Invalid: Cannot serve a drink without cups.
+     */
     public void dispose_drink(int d) {
         System.out.println("ERROR: Cannot dispense drink - no cups available.");
     }
     
+    /**
+     * Invalid: Cannot add additives when no cups are available.
+     */
     public void additive(int a) {
         System.out.println("ERROR: Cannot add additives - no cups available.");
     }

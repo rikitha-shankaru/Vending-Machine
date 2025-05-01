@@ -34,6 +34,8 @@ public class idle extends State {
 
     /**
      * Stores the drink price using the OutputProcessor.
+     * If current funds already meet/exceed the new price,
+     * move to coins_inserted state to allow drink selection.
      */
     public void set_price() {
         op.StorePrice();
@@ -48,8 +50,6 @@ public class idle extends State {
                 mda.ChangeState(3);
                 System.out.println("Sufficient funds. Please select your drink.");
             } else {
-                // System.out.printf("Price updated to $%.2f. Current funds: $%.2f%n", 
-                //             newPrice, currentCF);
                 System.out.printf("Current funds: $%.2f%n", currentCF);
             }
         } 
@@ -62,8 +62,6 @@ public class idle extends State {
                 mda.ChangeState(3);
                 System.out.println("Sufficient funds. Please select your drink.");
             } else {
-                // System.out.printf("Price updated to %d¢. Current funds: %d¢%n", 
-                //             newPrice, currentCF);
                 System.out.printf("Current funds: $%d%n", currentCF);
             }
         }
@@ -110,18 +108,30 @@ public class idle extends State {
         }
     }
 
+    /**
+     * Invalid operation: create() is only allowed in the start state.
+     */
     public void create() {
         System.out.println("ERROR: Machine already created.");
     }
     
+    /**
+     * Invalid operation: No ongoing transaction to cancel in idle state.
+     */
     public void cancel() {
         System.out.println("ERROR: No transaction to cancel in idle state.");
     }
     
+    /**
+     * Invalid operation: User must insert coins or card before selecting a drink.
+     */
     public void dispose_drink(int d) {
         System.out.println("ERROR: Insert coins/card first before selecting drink.");
     }
     
+    /**
+     * Invalid operation: User must select a drink before choosing additives.
+     */
     public void additive(int a) {
         System.out.println("ERROR: Select drink first before adding additives.");
     }

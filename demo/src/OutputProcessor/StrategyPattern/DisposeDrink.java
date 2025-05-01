@@ -1,6 +1,6 @@
 package OutputProcessor.StrategyPattern;
 
-// Strategy Pattern: Interface for drink disposal behavior
+// Strategy Pattern: This is the concrete strategy for DisposeDrink
 
 import DataStore.*;
 

@@ -15,13 +15,18 @@ import AbstractFactory.AbstractFactory;
  * and the MDA-EFSM, allowing execution of actions such as payment, drink selection,
  * and additive handling.
  *
+ * VM-1 supports two drinks: cappuccino and chocolate.
+ * Additives: only sugar is available.
+ * Currency values and balances are handled using float types.
+ * 
  * This class follows the principle of separating input handling from internal logic.
  */
+
 public class VendingMachine1 {
 
-	private MDAEFSM mda;
-	private DataStore ds;
-	AbstractFactory af;
+	private MDAEFSM mda;       // EFSM controller to manage state transitions
+	private DataStore ds;      // Platform-specific data storage (float-based)
+	AbstractFactory af;        // Abstract Factory to generate strategies and data store
 
 	// Constructor to initialize EFSM controller and data store
 	public VendingMachine1(MDAEFSM mda, DataStore ds) {
@@ -106,6 +111,7 @@ public class VendingMachine1 {
 	/**
 	 * Handles card-based payment.
 	 * If the card balance is greater than or equal to price, proceed with payment.
+	 * Otherwise, displays a decline message.
 	 * @param x card balance or amount entered
 	 */
 	public void card(float x) {

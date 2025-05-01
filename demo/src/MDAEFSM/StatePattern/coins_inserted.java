@@ -42,14 +42,14 @@ public class coins_inserted extends State {
      */
     public void coin(int f) {
         System.out.println("ERROR: Already paid.");
-       //System.out.println("[DEBUG] Entered coin() with value: " + f); // Debug 1
         
         DataStore ds = op.getDataStore();
         
-        // Return all accumulated coins (use CF instead of f)
+        // Update temp_v to store the returned amount (for VM-1 only)
         if (ds instanceof DataStore1) {
             ((DataStore1)ds).setTemp_v(f); // For VM-1
         } 
+        // VM-2: Skipping setTemp_v as logic may differ
         else if (ds instanceof DataStore2) {
             //((DataStore2)ds).setTemp_v(f); // For VM-2
         }
@@ -58,14 +58,6 @@ public class coins_inserted extends State {
         returnCoins.setDataStore(ds);
         returnCoins.ReturnCoins();
 
-        // Debug output to verify values
-        // if (ds instanceof DataStore1) {
-        //     System.out.printf("[DEBUG] CF: %.2f, Temp_v: %.2f\n", 
-        //                     ds.getFloatCf(), ds.getFloatTemp_v());
-        // } else {
-        //     System.out.printf("[DEBUG] CF: %d, Temp_v: %d\n",
-        //                     ds.getIntCf(), ds.getIntTemp_v());
-        // }
     }
 
     /**
@@ -132,18 +124,30 @@ public class coins_inserted extends State {
         }
     }
 
+    /**
+     * Invalid: create() is not allowed during an active transaction.
+     */
     public void create() {
         System.out.println("ERROR: Machine already created. Complete current transaction first.");
     }
     
+    /**
+     * Invalid: Cannot refill cups mid-transaction.
+     */
     public void insert_cups(int n) {
         System.out.println("ERROR: Cannot insert cups during transaction. Cancel or complete first.");
     }
     
+    /**
+     * Invalid: Cannot change price during transaction.
+     */
     public void set_price() {
         System.out.println("ERROR: Cannot change price during transaction. Cancel or complete first.");
     }
     
+    /**
+     * Invalid: Cannot swipe card during an ongoing transaction.
+     */
     public void card() {        
         System.out.printf("DECLINED: Transaction in progress.");
         System.out.println("\nPlease complete or cancel current transaction");

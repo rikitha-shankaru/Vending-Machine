@@ -41,7 +41,6 @@ public class ReturnCoins1 implements ReturnCoins {
 
     /**
      * Executes the action of returning inserted coins.
-     * Currently implemented as a print statement only.
      */
     @Override
     public void ReturnCoins() {
@@ -55,8 +54,6 @@ public class ReturnCoins1 implements ReturnCoins {
          * - Retrieves coin value as float from DataStore1
          * - Resets the temporary value storage after return
          */
-
-        //System.out.println("[DEBUG] Current DataStore: " + ds.getClass().getSimpleName());
 
         if (ds instanceof DataStore1) {
             DataStore1 ds1 = (DataStore1)ds;
@@ -74,6 +71,7 @@ public class ReturnCoins1 implements ReturnCoins {
             System.out.println("Returning " + coins + " Coin(s) Back");
             ds2.setTemp_v(0);   // Use int
         }
+        // Unknown DataStore type
         else {
             System.out.println("ERROR: Unknown DataStore type");
         }
