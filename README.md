@@ -33,7 +33,7 @@ VendingMachine/
 │   ├── MDAEFSM/               # Main FSM controller & State pattern core
 │   │   └── StatePattern/            # All individual state classes
 │   ├── OutputProcessor/       # Executes actions from state transitions
-│   └── StrategyPattern/       # Strategy interfaces and implementations
+│       └── StrategyPattern/       # Strategy interfaces and implementations
 ├── bin/                       # Compiled output directory
 ├── manifest.txt               # Manifest for JAR execution
 ├── VendingMachine.jar         # Executable JAR
@@ -47,7 +47,10 @@ Make sure Java JDK 11 or later is installed.
 
 In your terminal:
 
+# Compile source files
 javac -d bin $(find src -name "*.java")
+
+# Package into JAR
 jar cfm VendingMachine.jar manifest.txt -C bin .
 
 ---
@@ -92,7 +95,7 @@ COFFEE()
 ### 🔄 State Pattern
 - Implemented under `MDAEFSM/StatePattern/`
 - Each state class (e.g., `Idle`, `Start`, `NoCups`, `Coins_Inserted`) implements behaviors differently.
-- Transitions controlled by `MDAEFSM.java`.
+- EFSM logic orchestrated by `MDAEFSM.java`, which delegates behavior to current state.
 
 ### 🎭 Strategy Pattern
 - Implemented under `OutputProcessor/StrategyPattern/`
@@ -116,8 +119,9 @@ COFFEE()
 ---
 
 ## 📧 Contact
+ 
+**Likitha Shankar**  
+📧 [lshankar@hawk.iit.edu](mailto:lshankar@hawk.iit.edu)
 
-Likitha Shankar  
-📬 lshankar@hawk.iit.edu  
 
 For any issues or clarifications related to the project.
