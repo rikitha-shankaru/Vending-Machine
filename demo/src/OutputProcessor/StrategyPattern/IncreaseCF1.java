@@ -44,6 +44,6 @@ public class IncreaseCF1 implements IncreaseCF {
         float v = ds.getFloatTemp_v();
         float total = cf + v;
         ds.setCf(total);
-        System.out.println("Total coins: " + ds.getFloatCf());
+        System.out.printf("Total coins: %.2f%n", ds.getFloatCf());
     }
 }
