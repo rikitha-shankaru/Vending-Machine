@@ -1,8 +1,7 @@
 # ☕ Vending Machine Project
 
-**Course**: CS 586 - Software Systems Architecture  
-**Semester**: Spring 2025  
-**Student**: Likitha Shankar  
+Software Systems Architecture   
+By Likitha Shankar  
 
 ---
 
